@@ -7,3 +7,15 @@
 //
 
 import Foundation
+
+struct Avatar: Codable {
+    let url: String
+    let id: String
+    
+    enum CodingKeys: String, CodingKey {
+        case url
+        case id = "avatar_id"
+    }
+}
+
+

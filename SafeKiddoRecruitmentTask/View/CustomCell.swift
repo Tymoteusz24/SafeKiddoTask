@@ -10,6 +10,30 @@ import UIKit
 
 class CustomCell: UITableViewCell {
 
+    @IBOutlet weak var customImageView: UIImageView!
+    @IBOutlet weak var avatarId: UILabel!
+    
+    var viewModel : CellViewModel? {
+        didSet {
+            guard let viewModel = viewModel else { return }
+            viewModel.getImageFromUrl(completion: { [weak self] (image) in
+                DispatchQueue.main.async {
+                    self?.customImageView.image = image
+                    self?.layoutSubviews()
+                }
+            })
+            
+            avatarId.text = viewModel.avatarId
+        }
+    }
+    
+    
+      override func prepareForReuse() {
+          super.prepareForReuse()
+          customImageView.image = UIImage(systemName: "clear")
+      }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
